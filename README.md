@@ -1,4 +1,4 @@
-CAPITOLO 1 – Introduzione
+#### CAPITOLO 1 – Introduzione
 Il lavoro presentato in questo documento descrive la realizzazione di un simulatore software in linguaggio C di un sistema logico-aritmetico sincronizzato a 32 bit, basato sull’utilizzo dell’unità ALU (Arithmetic Logic Unit) modello 74181 e registri PIPO (Parallel Input - Parallel Output). Questo tipo di sistema rappresenta la base fondamentale di ogni unità centrale di elaborazione (CPU), poiché permette l’esecuzione di operazioni aritmetiche e logiche su dati binari (0 o 1). Tali operazioni costituiscono il nucleo del funzionamento di tutti i dispositivi informatici moderni.
 Nel seguente elaborato si farà riferimento al registro 74198 anche se non si è utilizzato, al suo posto è stato implementato un registro formato da flip flop singoli. Nel corso del report verrà comunque identificato come 74198 per semplicità.
 L’ALU 74181 è uno dei primi esempi di unità logico-aritmetica realizzata come singolo circuito integrato TTL (Transistor-Transistor Logic). Progettata per operare su parole di 4 bit, questa ALU permette l’esecuzione di ben 48 diverse operazioni, tra cui somme, sottrazioni, operazioni logiche (AND, OR, XOR, NOT, ecc.) e altre manipolazioni complesse. La sua versatilità e modularità la rendono ideale per essere estesa a sistemi a più bit collegando in cascata più unità. In questo progetto, sono state utilizzate otto ALU 74181 per creare un sistema completo a 32 bit, con ciascuna ALU che gestisce un gruppo di 4 bit.
@@ -7,7 +7,7 @@ Il processo di esecuzione di un’operazione parte dall’inserimento manuale o 
 L’obiettivo principale del progetto è fornire uno strumento didattico per comprendere il funzionamento interno di un sistema di calcolo digitale. Attraverso la simulazione software, si riproduce fedelmente il comportamento reale di un sistema hardware digitale, evidenziando l’interazione tra le componenti logiche fondamentali come ALU e registri, nonché il ruolo della sincronizzazione nel corretto flusso dei dati.
 Questo tipo di approccio consente agli studenti di acquisire una solida comprensione del funzionamento delle unità ALU, dei registri e del sistema di calcolo in generale, preparandoli alla progettazione e all’analisi di architetture hardware più complesse.
 
-CAPITOLO 2 – Analisi dell’unità logico-aritmetica ALU 74181
+#### CAPITOLO 2 – Analisi dell’unità logico-aritmetica ALU 74181
 L'unità logico-aritmetica (ALU) modello 74181 è uno dei primi circuiti integrati TTL progettati per eseguire operazioni aritmetiche e logiche su dati a 4 bit. Questo componente ha rappresentato un punto di svolta nell’architettura dei primi sistemi informatici, permettendo l’esecuzione di calcoli complessi all’interno di un singolo chip. L’ALU 74181 è stata ampiamente utilizzata nei primi microprocessori e continua oggi a essere studiata per il suo valore didattico e storico.
 La 74181 riceve due operandi a 4 bit, indicati come A (A0–A3) e B (B0–B3) , e genera in uscita un risultato anch’esso a 4 bit (F0–F3 ). Il tipo di operazione effettuata dipende da diversi segnali di controllo: quattro linee di selezione (S0–S3 ), una linea di modalità (M ) che distingue tra operazioni logiche e aritmetiche, e una linea per il riporto in ingresso (Cn ). Inoltre, l’ALU produce un riporto in uscita (Cn+4) e due segnali ausiliari P (Propagate Carry) e G (Generate Carry) , utilizzati per migliorare la velocità delle somme multi-bit grazie al sistema lookahead carry.
 Funzioni supportate
@@ -24,7 +24,7 @@ Nel contesto del simulatore sviluppato in linguaggio C, l’ALU 74181 viene ripr
 Inoltre, vengono emulati i segnali di controllo S0–S3, M e Cn, permettendo all’utente di selezionare l’operazione desiderata tramite interfaccia terminale o file di configurazione. Il risultato dell’operazione viene visualizzato direttamente a schermo oppure registrato in un file di log per successive analisi.
 L’utilizzo della 74181 nel simulatore offre un approccio pratico per comprendere il funzionamento delle ALU reali, nonché un’opportunità per studiare il comportamento delle operazioni logiche e aritmetiche su dati binari, inclusa la propagazione del riporto e le tecniche di ottimizzazione come il look ahead carry.
 
-CAPITOLO 3 – Funzioni Logiche Supportate
+#### CAPITOLO 3 – Funzioni Logiche Supportate
 L’unità logico-aritmetica (ALU) modello 74181 è in grado di eseguire ben 16 operazioni logiche distinte, attivabili impostando il segnale di modalità M = 1. Queste operazioni agiscono direttamente sui singoli bit degli operandi A e B senza coinvolgere il riporto (carry-in Cn) e sono utilizzate per manipolare i dati a livello binario.
 Le funzioni logiche implementate dall’ALU 74181 permettono di effettuare operazioni fondamentali come AND, OR, EXOR, NOT, NAND, NOR e altre combinazioni booleane personalizzate. Ogni operazione è selezionata attraverso i segnali di controllo S0–S3, che definiscono l’operazione da applicare su ciascuna coppia di bit (A_i, B_i).
 Elenco delle principali operazioni logiche
@@ -45,7 +45,7 @@ Ogni operazione viene emulata in base ai valori dei segnali di controllo S0–S3
 Il risultato dell’operazione logica viene visualizzato sia a schermo che in un file di log, garantendo una tracciabilità completa delle operazioni effettuate.
 Le operazioni logiche supportate dall’ALU 74181 rappresentano un insieme molto ricco e versatile di strumenti per la manipolazione diretta dei dati binari. La loro corretta simulazione nel codice software consente di replicare fedelmente il comportamento di un sistema hardware reale, rendendo il progetto non solo un valido strumento didattico ma anche un ambiente di test per futuri sviluppi hardware/software.
 
-CAPITOLO 4 – Operazioni Aritmetiche Supportate
+#### CAPITOLO 4 – Operazioni Aritmetiche Supportate
 L’unità logico-aritmetica (ALU) modello 74181 è in grado di eseguire ben 32 operazioni aritmetiche, suddivise in due gruppi principali:
 - 16 operazioni aritmetiche senza carry-in, attivabili impostando il segnale di modalità M = 0 e il riporto in ingresso Cn = 0
 - 16 operazioni aritmetiche con carry-in, attivabili sempre con M = 0, ma con Cn = 1
@@ -73,7 +73,7 @@ Il segnale Cn (carry-in) gioca un ruolo fondamentale nelle operazioni aritmetich
 Inoltre, alcune operazioni dell’ALU 74181 utilizzano il carry per generare risultati diversi: ad esempio, la stessa combinazione di segnali S0–S3 può produrre una somma semplice oppure una somma con carry, a seconda dello stato del segnale Cn.
 Le operazioni aritmetiche supportate dall’ALU 74181 rappresentano un insieme molto ricco e versatile di strumenti per la manipolazione matematica dei dati binari. La loro corretta simulazione nel codice software consente di replicare fedelmente il comportamento di un sistema hardware reale, rendendo il progetto non solo un valido strumento didattico ma anche un ambiente di test per futuri sviluppi hardware/software.
 
-CAPITOLO 5 – Tabella delle Funzioni (Truth Table)
+#### CAPITOLO 5 – Tabella delle Funzioni (Truth Table)
 La ALU 74181 è un componente logico altamente versatile, in grado di eseguire ben 48 operazioni distinte, selezionabili attraverso i segnali di controllo S0–S3, la modalità M e il riporto in ingresso Cn. La corretta comprensione del comportamento dell’unità richiede l’utilizzo di una truth table (tabella della verità) che permette di visualizzare chiaramente quale operazione viene eseguita per ogni combinazione dei segnali di controllo.
 Struttura della Truth Table
 La truth table dell’ALU 74181 può essere suddivisa in tre sezioni principali:
@@ -148,7 +148,7 @@ Visualizzazione grafica
 Per rendere più intuitiva la comprensione del funzionamento dell’ALU, è possibile integrare nel report una versione grafica della truth table, eventualmente generata dinamicamente dal programma stesso o tramite script esterni. Tuttavia, in assenza di supporto grafico, la rappresentazione testuale rimane efficace e precisa.
 La truth table dell’ALU 74181 è uno strumento essenziale per comprendere il comportamento dell’unità logico-aritmetica e per implementarla correttamente in ambiente software. Essa consente di mappare ogni combinazione di segnali di controllo all’operazione corrispondente, facilitando la simulazione fedele del sistema reale. Nel progetto descritto, essa è stata utilizzata come base per la selezione e l’esecuzione delle operazioni aritmetiche e logiche, rendendo il simulatore uno strumento didattico completo e preciso.
 
-CAPITOLO 6 – Gestione del Carry-in e Carry-out
+#### CAPITOLO 6 – Gestione del Carry-in e Carry-out
 Uno degli aspetti fondamentali del funzionamento dell’unità logico-aritmetica (ALU) modello 74181 è la corretta gestione del carry-in (Cn) e del carry-out (Cn+4) . Questi segnali rappresentano i bit di riporto che permettono di collegare più ALU tra loro, estendendo il sistema originale a parole di dati più lunghe, come quelle da 32 bit .
 Il ruolo del Carry nella somma e sottrazione
 Il carry-in (Cn) indica se esiste un riporto proveniente da un'unità ALU precedente. È utilizzato principalmente durante le operazioni aritmetiche come la somma e la sottrazione, dove il risultato può generare un overflow rispetto ai 4 bit disponibili.
@@ -194,7 +194,7 @@ Calcoli con operandi negativi (complemento a due)
 Senza una corretta gestione del carry, non sarebbe possibile estendere il sistema oltre i 4 bit né effettuare calcoli complessi in modo affidabile.
 La gestione del carry-in e del carry-out rappresenta uno dei punti chiave nell’utilizzo dell’ALU 74181. Essa permette di collegare più ALU tra loro, creando sistemi sincronizzati in grado di elaborare dati di grandi dimensioni. Nel simulatore software sviluppato in C, questa logica è stata riprodotta fedelmente, garantendo una corretta propagazione del riporto tra le ALU e un comportamento conforme a quanto avverrebbe in un sistema hardware reale. L’utilizzo dei segnali P e G ha permesso inoltre di implementare tecniche avanzate come il lookahead carry, migliorando notevolmente l’efficienza del sistema simulato.
 
-CAPITOLO 7 – Lookahead Carry Generator
+#### CAPITOLO 7 – Lookahead Carry Generator
 Uno dei limiti principali della somma binaria tradizionale, soprattutto quando si lavora con operandi composti da più bit, è il ritardo nella propagazione del carry . In un sistema sequenziale, ogni ALU attende il risultato dell’unità precedente prima di poter calcolare il proprio risultato e generare il riporto successivo. Questo processo seriale rallenta notevolmente l’esecuzione di operazioni aritmetiche su dati a lunghezza maggiore (es. 32 bit), riducendone l’efficienza.
 Per superare questo limite, l’ALU 74181 implementa una logica avanzata chiamata Lookahead Carry Generator , che permette di calcolare anticipatamente i valori del riporto per tutte le ALU coinvolte, eliminando la necessità di aspettare la propagazione seriale del carry tra le unità.
 Principio di funzionamento
@@ -240,7 +240,7 @@ Senza questa logica, molti sistemi informatici moderni soffrirebbero di gravi ri
 Il Lookahead Carry Generator rappresenta una soluzione ingegnosa al problema della propagazione seriale del carry. La sua integrazione nell’ALU 74181 ha reso possibile la realizzazione di sistemi sincroni ad alte prestazioni, capaci di gestire operazioni aritmetiche complesse in tempi ridotti.
 Nel simulatore software sviluppato in C, questa logica è stata correttamente implementata grazie alla gestione avanzata dei segnali P e G , garantendo una rappresentazione precisa del comportamento reale dell’hardware originale. L’utilizzo di questa tecnica rende il sistema non solo più veloce, ma anche più affidabile e scalabile, aprendo la strada a futuri miglioramenti e ottimizzazioni.
 
-CAPITOLO 8 – Schema Interno dell’ALU 74181
+#### CAPITOLO 8 – Schema Interno dell’ALU 74181
 L’unità logico-aritmetica (ALU) modello 74181 è un circuito integrato TTL che integra al suo interno una complessa rete logica progettata per eseguire operazioni aritmetiche e logiche su dati a 4 bit. La sua architettura interna si basa su una combinazione di porte logiche fondamentali, multiplexer e full adder, che permettono di selezionare e calcolare l’operazione richiesta in base ai segnali di controllo forniti dall’esterno.
 Struttura logica principale
 La ALU 74181 riceve in ingresso due operandi a 4 bit, indicati come A0–A3 e B0–B3 , e genera in uscita un risultato anch’esso a 4 bit (F0–F3 ). Il tipo di operazione eseguita dipende da diversi segnali esterni:
@@ -283,7 +283,7 @@ Implementazione di sistemi sincronizzati a più bit
 Analisi avanzata del ritardo logico e della propagazione del carry
 Lo schema interno dell’ALU 74181 rappresenta un esempio classico di come possono essere integrate le operazioni logiche e aritmetiche all’interno di un unico chip. L’utilizzo di porte logiche, multiplexer e full adder consente di realizzare un componente altamente versatile, capace di supportare ben 48 operazioni distinte. La sua simulazione software, pur mantenendo un certo livello di astrazione, riesce a riprodurre fedelmente il comportamento originale, rendendo possibile lo test e l’apprendimento avanzato del funzionamento delle ALU.
 
-CAPITOLO 9 – Espansione a 32 bit tramite 8 ALU 74181
+#### CAPITOLO 9 – Espansione a 32 bit tramite 8 ALU 74181
 Una delle caratteristiche più interessanti dell’unità logico-aritmetica (ALU) modello 74181 è la sua capacità di essere facilmente espansa per operare su parole di dati più lunghe. Pur essendo progettata per elaborare operandi a 4 bit , questa ALU può essere collegata in cascata con altre unità simili per costruire sistemi sincronizzati a 8, 16 o addirittura 32 bit . Questo tipo di architettura modulare è stato ampiamente utilizzato nei primi computer e rimane oggi uno strumento didattico fondamentale per comprendere i principi alla base del calcolo digitale.
 Architettura modulare a 32 bit
 Per realizzare un sistema a 32 bit , sono necessarie otto ALU 74181 , ciascuna delle quali elabora un gruppo di 4 bit . Ogni ALU riceve i propri operandi A e B, mentre tutti condividono gli stessi segnali di controllo S0–S3 e M , che determinano l’operazione da eseguire. Il riporto (Cn ) viene propagato da un’ALU all’altra: il carry-out (Cn+4) dell’unità precedente diventa il carry-in (Cn) dell’unità successiva.
@@ -322,7 +322,7 @@ Analisi di sistemi hardware digitali
 L’utilizzo di ALU multiple consente inoltre di studiare fenomeni come il ritardo di propagazione del carry e la sincronizzazione tra componenti logiche.
 L’espansione a 32 bit mediante 8 ALU 74181 rappresenta un esempio classico di come si possa costruire un sistema di calcolo digitale partendo da componenti elementari. L’uso combinato di ALU e registri PIPO rende il sistema non solo funzionalmente completo, ma anche efficiente e ben strutturato. Nel simulatore software sviluppato in C, questa architettura è stata riprodotta fedelmente, permettendo di testare e analizzare il comportamento del sistema in modo realistico e flessibile.
 
-CAPITOLO 10 – Registri
+#### CAPITOLO 10 – Registri
 I registri PIPO (Parallel Input - Parallel Output) rappresentano una tipologia fondamentale di registro utilizzata nei sistemi digitali sincroni per la memorizzazione temporanea di dati binari. Nel contesto del simulatore software sviluppato in linguaggio C, non è stato utilizzato il circuito integrato 74198, bensì è stato implementato un registro equivalente a 32 bit mediante l’uso di array di interi e funzioni basate su flip-flop SR a comportamento sincrono. Nonostante nel report si faccia riferimento al 74198 per semplicità, si sottolinea che la sua struttura con segnali di shift non è stata riprodotta; si è invece realizzato un modello fedele al comportamento sincrono parallelo tramite clock.
 Funzionamento del registro simulato Il registro simulato è composto da 32 flip-flop SR, ciascuno implementato tramite una funzione n_SR_FLIP_FLOP() che riceve in ingresso i segnali D (bit da memorizzare), S_reg e R_reg (controllo di set e reset), il segnale di clock CLK, e un puntatore allo stato del clock precedente prev_CLK, oltre che puntatori ai valori di uscita Q e Q_bar. L’aggiornamento del contenuto avviene solo al fronte positivo del clock (CLK in salita).
 La funzione n_PIPO74198() gestisce un gruppo di 8 flip-flop SR in parallelo, mentre la funzione reg_PIPO32() unisce quattro di questi gruppi per formare un registro completo a 32 bit. Questo approccio consente un caricamento parallelo di tutti i bit sincronizzato con il clock, riproducendo il comportamento caratteristico dei registri PIPO senza introdurre logica di shift.
@@ -338,7 +338,7 @@ Memorizzare i risultati prodotti dall’ALU a 32 bit
 Sincronizzare tutte le operazioni con il segnale di clock
 L’utilizzo di array e funzioni modulari permette un’architettura scalabile e fedele, pur non seguendo esattamente lo schema elettrico del 74198. Questa scelta consente una maggiore flessibilità nella simulazione e una migliore aderenza al comportamento logico desiderato.
 
-CAPITOLO 11 – Funzionamento del Registro PIPO
+#### CAPITOLO 11 – Funzionamento del Registro PIPO
 Nel simulatore software sviluppato in linguaggio C, i registri PIPO non sono basati sul circuito integrato 74198, ma su una struttura personalizzata che riproduce le funzionalità fondamentali dei registri paralleli sincronizzati, senza includere la logica di shift o i segnali S e CLR. Il registro è realizzato mediante 32 flip-flop SR controllati da funzioni software e sincronizzati tramite clock.
 Struttura e comportamento Ogni bit del registro è gestito da una funzione n_SR_FLIP_FLOP() che consente di aggiornare il valore memorizzato (Q) al fronte positivo del segnale di clock. I dati di input vengono memorizzati negli array D[], mentre gli array Q[] e Q_bar[] rappresentano lo stato attuale del registro e il suo complemento.
 L'aggiornamento avviene solo quando il segnale CLK transita da 0 a 1, comportamento verificato dal confronto con prev_CLK[]. Il registro mantiene i dati finché non riceve un nuovo fronte positivo.
@@ -353,7 +353,7 @@ Memorizzare il risultato dell’ALU nel registro di output
 Mantenere sincronizzato il trasferimento dati grazie alla temporizzazione
 
 
-CAPITOLO 12 – Uso dei Registri come Input/Output
+#### CAPITOLO 12 – Uso dei Registri come Input/Output
 Nel sistema logico-aritmetico simulato, i registri PIPO realizzati con flip-flop SR svolgono un ruolo essenziale come unità di input e output. Ogni registro è composto da 32 bit gestiti in gruppi da 8 mediante n_PIPO74198(), e tutti i gruppi sono sincronizzati con lo stesso segnale di clock.
 Ruolo nel sistema
 Registro A: contiene il primo operando
@@ -364,7 +364,7 @@ Reset e mantenimento dello stato Il simulatore non prevede segnali espliciti di 
 Memorizzazione dei risultati Dopo l’esecuzione di un’operazione ALU, il risultato è scritto nel registro F. Questo valore può essere visualizzato a terminale o salvato su file. La funzione salva_in_memoria() permette di archiviare temporaneamente i risultati per analisi successive.
 Conclusione L’implementazione dei registri PIPO nel simulatore C offre un’interfaccia sincrona affidabile e coerente, fondamentale per garantire il corretto funzionamento del sistema logico-aritmetico simulato. Pur non riproducendo esattamente il comportamento del 74198, la soluzione adottata risulta funzionalmente efficace e didatticamente chiara
 
-CAPITOLO 13 – Simulazione Software del Sistema
+#### CAPITOLO 13 – Simulazione Software del Sistema
 La realizzazione di un simulatore software per un sistema logico-aritmetico sincronizzato a 32 bit, basato su ALU 74181 e registri PIPO 74198, richiede un’implementazione precisa delle operazioni logiche e aritmetiche, la corretta gestione dei segnali di controllo, la propagazione del carry tra le unità e l’uso di registri sincronizzati per il trasferimento dati. Il progetto è stato interamente sviluppato in linguaggio C, offrendo una rappresentazione fedele del comportamento del circuito hardware.
 L’obiettivo è simulare il funzionamento di un sistema digitale sincronizzato composto da otto ALU 74181 collegate in cascata, registri PIPO per la gestione degli operandi e dei risultati, un sistema di controllo tramite segnali S0–S3, M e Cn, e un clock software per garantire la sincronizzazione dei componenti. Il simulatore consente sia l’inserimento manuale dei dati sia la lettura da file di configurazione, offrendo grande flessibilità d’uso.
 Il codice è organizzato in moduli che implementano le operazioni logiche di base come AND, OR, NOT, XOR e varianti a più ingressi. Viene simulata una singola ALU 74181 a 4 bit, poi estesa a 32 bit mediante otto istanze collegate in sequenza. Ogni ALU elabora un segmento di 4 bit e condivide i segnali di controllo, mentre il carry-out di ciascuna è utilizzato come carry-in per la successiva. Questo schema assicura una corretta propagazione del riporto su tutta la lunghezza dei dati.
@@ -374,7 +374,7 @@ La lettura e la scrittura da file sono gestite tramite file di input predefiniti
 La funzione di clock, richiamata a ogni aggiornamento, genera un impulso con ritardo programmabile e consente il trasferimento simultaneo dei dati tra le componenti del sistema. In un tipico ciclo di esecuzione, l’utente immette i valori, i dati vengono caricati nei registri di input, inviati alle ALU al fronte positivo del clock, elaborati, memorizzati nel registro di output e infine visualizzati o salvati.
 Questa simulazione software rappresenta un’efficace dimostrazione pratica di come sia possibile replicare in ambiente virtuale il comportamento di un sistema hardware reale. Grazie all’impiego di funzioni logiche fondamentali, registri sincronizzati e un modello accurato dell’ALU 74181, il programma si rivela utile sia per finalità didattiche sia come base per futuri sviluppi verso architetture hardware/software più complesse.
 
-CAPITOLO 14 – Struttura del Codice C
+#### CAPITOLO 14 – Struttura del Codice C
 Il simulatore software descritto in questo progetto è stato realizzato in linguaggio C, scelto per la sua capacità di emulare con precisione il comportamento logico dei circuiti digitali. Il codice riproduce fedelmente l’architettura basata su ALU 74181 e registri PIPO, con particolare attenzione alla sincronizzazione, alla propagazione del carry e alla gestione degli input/output. L’intero programma è strutturato in più file e moduli, ciascuno con un compito specifico: uno dedicato alle funzioni logiche di base come AND, OR, NOT e XOR, uno per la simulazione della singola ALU 74181, uno per la gestione dei registri PIPO, uno per la logica generale del sistema e uno per utility come conversioni, memoria e logging. Questa struttura modulare rende il codice ordinato, leggibile e facilmente manutenibile.
 
 Le operazioni logiche sono implementate tramite funzioni semplici ma precise, che riproducono il comportamento delle porte logiche dell’hardware originale. Tali funzioni vengono poi combinate per creare operazioni più articolate come porta_and_3(), porta_or_4() o porta_exor_5(), utilizzate per replicare la logica interna dell’ALU. La funzione principale che simula l’ALU 74181, denominata n_ALU74181(), riceve in ingresso il riporto iniziale, la modalità operativa, gli operandi a 4 bit e i segnali di selezione, e restituisce il risultato a 4 bit, i segnali ausiliari P, G, Cn+4 e un flag che segnala se i due operandi sono uguali. Questo schema consente di emulare in modo accurato la truth table dell’ALU reale.
@@ -387,7 +387,7 @@ Dopo ogni esecuzione, il risultato viene mostrato a schermo e registrato in un f
 
 Un ciclo di esecuzione tipico prevede l’inserimento dei valori degli operandi, il caricamento nei registri di input, l’invio alle ALU al fronte positivo del clock, l’elaborazione dell’operazione selezionata, la memorizzazione del risultato e infine la visualizzazione o il salvataggio a seguito di un nuovo impulso di clock. Questo progetto dimostra come sia possibile simulare in ambiente virtuale il comportamento di un sistema hardware reale, sfruttando un’accurata modellazione dell’ALU 74181, l’uso di registri sincronizzati e funzioni logiche fondamentali. Il simulatore risulta uno strumento utile sia in ambito didattico che per lo sviluppo di architetture hardware/software più complesse in futuro.
 
-CAPITOLO 15 - Funzioni di Input Utente
+#### CAPITOLO 15 - Funzioni di Input Utente
 Nel simulatore software del sistema logico-aritmetico sincronizzato a 32 bit, la gestione dell’input utente rappresenta una componente fondamentale. Essa permette all’utente di fornire operandi, segnali di controllo e configurazioni operative necessarie per eseguire le operazioni desiderate. Il programma è stato progettato per accettare sia input manuale da terminale che lettura automatica da file di configurazione , garantendo flessibilità e facilità d’uso.
 Obiettivo della funzione di input
 L’obiettivo principale della funzione di input è:
@@ -445,7 +445,7 @@ L’utente può poi richiamare i risultati precedenti per effettuare nuove opera
 Dopo l’inserimento dei dati, l’utente riceve una conferma visiva sulle informazioni immesse.I dati possono essere anche registrati in un file di log per successive analisi.
 La funzione di input utente gioca un ruolo chiave nella fruibilità e affidabilità del simulatore. Grazie alla combinazione di inserimento manuale e caricamento da file, il programma offre un alto livello di flessibilità, permettendo sia test rapidi che operazioni ripetute con configurazioni predeterminate. La validazione accurata dei dati assicura che il simulatore mantenga un comportamento coerente e fedele al sistema hardware reale. La possibilità di salvare i risultati in memoria e registrare i dati in formato leggibile rende il programma uno strumento completo per l’apprendimento e l’analisi del funzionamento delle ALU e dei registri sincronizzati.
 
-CAPITOLO 16 – Gestione degli Errori
+#### CAPITOLO 16 – Gestione degli Errori
 Nel simulatore software del sistema logico-aritmetico sincronizzato a 32 bit, la gestione degli errori è fondamentale per garantire il corretto funzionamento del programma. Poiché l’obiettivo è replicare fedelmente il comportamento di un circuito digitale reale, ogni valore immesso dall’utente deve rispettare vincoli precisi, come l’uso esclusivo di bit binari (0 o 1), l’aderenza ai limiti numerici previsti e il corretto formato dei file. Per evitare risultati errati o malfunzionamenti, sono state adottate strategie di validazione e controllo che intervengono in tutte le fasi dell’esecuzione.
 
 Il programma verifica costantemente la correttezza dei dati inseriti, prevenendo l’uso di input non conformi, rilevando eventuali anomalie durante l’esecuzione e fornendo all’utente messaggi chiari per agevolare la correzione. Gli errori più comuni includono valori non binari nei segnali di controllo e negli operandi, file di configurazione inesistenti o malformati, operazioni aritmetiche non valide come la divisione per zero, overflow o underflow nei calcoli, problemi di accesso ai file o mancanza di memoria disponibile in fase di esecuzione.
@@ -464,7 +464,7 @@ A supporto del debugging, è presente anche una modalità di test automatico, in
 
 Grazie a questa articolata gestione degli errori, il simulatore garantisce affidabilità e robustezza anche in presenza di input errati o condizioni anomale. I controlli sull’input, la gestione sicura dei file, il monitoraggio dinamico della memoria e il logging sistematico rendono il programma uno strumento solido sia per scopi didattici che per possibili estensioni professionali. La combinazione di validazione automatica, feedback chiari e tracciamento continuo degli errori consente di esplorare in modo sicuro il comportamento del sistema hardware originale in un ambiente software controllato.
 
-CAPITOLO 17 – Simulazione della Singola ALU
+#### CAPITOLO 17 – Simulazione della Singola ALU
 La simulazione software dell’unità logico-aritmetica 74181 costituisce uno degli elementi centrali del progetto. Questo componente, nato come circuito TTL a 4 bit, è stato fedelmente riprodotto in ambiente software utilizzando le funzioni logiche fondamentali del linguaggio C, rendendo possibile l’esecuzione di operazioni logiche e aritmetiche su operandi binari. L’obiettivo di questa simulazione è quello di replicare il comportamento reale dell’ALU, accettando due operandi a 4 bit (A0–A3 e B0–B3), ricevendo in ingresso i segnali di controllo S0–S3, la modalità operativa M e il segnale di carry-in Cn, e producendo come uscita un risultato a 4 bit (F0–F3) insieme ai segnali ausiliari P (Propagate), G (Generate) e Cn+4 (carry-out).
 
 La logica interna dell’ALU 74181 è caratterizzata da una rete combinatoria di porte logiche che seleziona l’operazione desiderata in base ai segnali di controllo. Questa struttura è stata ricreata nel programma tramite l’uso degli operatori logici standard del C, come & per AND, | per OR, ! per NOT e ^ per XOR, combinati all’interno di funzioni ausiliarie come porta_and_3(), porta_or_4() e porta_exor_5(), necessarie per simulare il funzionamento della rete logica interna in modo fedele. Ogni bit dell’uscita F viene calcolato in base agli ingressi e ai segnali di controllo, replicando la logica originale del circuito.
@@ -479,7 +479,7 @@ Per semplificare l’utilizzo ripetuto del simulatore, è stata prevista la poss
 
 Il simulatore registra costantemente le informazioni relative alle operazioni eseguite, includendo gli operandi, i segnali di controllo, il risultato e lo stato del carry-out, per garantire una completa tracciabilità. Questa memoria, utile anche per il debug, consente di verificare il corretto funzionamento del sistema nel tempo. La simulazione della ALU 74181 rappresenta quindi un elemento chiave per comprendere il comportamento logico-aritmetico a livello hardware, fornendo una base solida per l’estensione a sistemi multi-ALU sincronizzati a 32 bit. Grazie all’utilizzo di operatori logici elementari e a una struttura modulare, il simulatore offre uno strumento completo per l’apprendimento, l’analisi e lo sviluppo di architetture digitali.
 
-CAPITOLO 18 – Simulazione Multi-ALU (32 bit)
+#### CAPITOLO 18 – Simulazione Multi-ALU (32 bit)
 La simulazione software di un sistema logico-aritmetico sincronizzato a 32 bit, basato su otto unità ALU 74181 collegate in cascata, costituisce uno degli aspetti più avanzati del progetto. Questa architettura modulare permette di estendere le capacità computazionali della singola ALU a 4 bit fino a operare su parole da 32 bit, assicurando risultati coerenti con il comportamento atteso di un sistema hardware reale. Nonostante l’ALU 74181 sia progettata per operazioni a 4 bit, grazie alla presenza del segnale di carry-out e al supporto del lookahead carry generator, può essere facilmente connessa in serie con altre unità per formare un sistema capace di elaborare dati di lunghezza maggiore.
 
 Nel simulatore, sviluppato in linguaggio C, vengono utilizzate otto istanze della funzione n_ALU74181(), ognuna delle quali gestisce un gruppo di 4 bit. Gli operandi A e B, rispettivamente da 32 bit, sono divisi in otto nibble da 4 bit ciascuno e distribuiti alle singole ALU. Tutte le unità operano sotto gli stessi segnali di controllo, S0–S3 e M, che determinano l’operazione da eseguire e la modalità (logica o aritmetica). Il carry-out generato da ciascuna ALU viene passato come carry-in all’unità successiva, garantendo una propagazione ordinata e corretta del riporto.
@@ -496,7 +496,7 @@ I registri PIPO 74198 sono emulati tramite array che rappresentano i bit immagaz
 
 Un’esecuzione tipica prevede che l’utente immetta i valori desiderati, che questi vengano validati e caricati nei registri, e che al primo impulso di clock i dati vengano elaborati. Al secondo impulso, i risultati vengono memorizzati e visualizzati. L’intero processo garantisce precisione, coerenza e riproducibilità delle operazioni logico-aritmetiche in un contesto software, emulando in maniera efficace l’architettura di un sistema digitale complesso. Grazie all’integrazione tra ALU 74181 e registri PIPO, e alla gestione avanzata della propagazione del carry, il simulatore rappresenta uno strumento potente e didatticamente valido per comprendere il funzionamento interno di sistemi sincroni e per porre le basi per ulteriori evoluzioni hardware o software.
 
-CAPITOLO 19 – Interfaccia Utente (Menu)
+#### CAPITOLO 19 – Interfaccia Utente (Menu)
 L’interfaccia utente del simulatore software del sistema logico-aritmetico sincronizzato a 32 bit costituisce un elemento essenziale per la fruibilità del programma. È stata progettata per garantire un’interazione intuitiva con il sistema, permettendo all’utente di selezionare rapidamente le operazioni desiderate, immettere operandi e segnali di controllo, visualizzare i risultati in modo leggibile e salvare i dati elaborati. Il menù principale, mostrato all’avvio, offre un accesso centralizzato a tutte le funzionalità disponibili, organizzate in modo semplice e diretto. Ogni opzione può essere selezionata tramite l’inserimento di un numero corrispondente, rendendo il sistema accessibile anche a chi non ha grande familiarità con strumenti simili.
 
 Quando l’utente sceglie di inserire i dati manualmente, il programma guida passo dopo passo nella digitazione dei valori decimali o binari per gli operandi A e B, del riporto iniziale Cn, della modalità M (indicante se si tratta di operazione logica o aritmetica) e dei segnali di selezione S0–S3. Ogni valore immesso viene sottoposto a un controllo di validità per garantire che rientri nei limiti consentiti e che la rappresentazione binaria sia corretta. In alternativa, è possibile caricare tutti questi parametri da un file di configurazione, generalmente denominato input_alu.txt, il quale può essere facilmente modificato per effettuare più test senza la necessità di reinserire ogni dato manualmente.
@@ -513,7 +513,7 @@ Ogni input fornito dall’utente viene rigorosamente validato. I bit devono esse
 
 Infine, per migliorare la leggibilità dei dati visualizzati, l’interfaccia utilizza una formattazione grafica avanzata. Questa scelta stilistica consente di identificare facilmente sia i risultati ottenuti che eventuali problemi, rendendo l’interazione con il simulatore non solo più funzionale ma anche più gradevole. L’interfaccia utente, quindi, svolge un ruolo chiave nel successo e nell’utilità del simulatore, integrando semplicità d’uso, robustezza tecnica e funzionalità complete in un unico ambiente operativo, adatto tanto per la formazione quanto per lo sviluppo e il testing di architetture logico-aritmetiche.
 
-CAPITOLO 20 – Gestione del Clock nel Codice
+#### CAPITOLO 20 – Gestione del Clock nel Codice
 La corretta gestione del segnale di clock è fondamentale per riprodurre fedelmente il comportamento sincrono del sistema logico-aritmetico descritto. Il simulatore software implementa la sincronizzazione tra ALU e registri PIPO attraverso una serie di funzioni dedicate che permettono di generare impulsi regolari, emulando il ciclo di clock tipico dei circuiti digitali.
 
 Obiettivo della gestione del clock
@@ -577,7 +577,7 @@ Il risultato viene caricato nel registro di output
 Un nuovo ciclo di clock rende il risultato disponibile all’esterno
 La gestione del clock rappresenta uno degli elementi chiave per garantire la correttezza del comportamento del sistema simulato. Grazie alla funzione clock_step(), al controllo avanzato del ritardo e alla registrazione dettagliata delle transizioni, il programma riesce a riprodurre fedelmente il comportamento sincrono di un sistema digitale basato su ALU 74181 e registri PIPO. Questa capacità non solo migliora l’accuratezza del simulatore, ma lo rende anche uno strumento didattico efficace per comprendere il ruolo del clock nei sistemi logici sincronizzati.
 
-CAPITOLO 21 – Logging dei Risultati
+#### CAPITOLO 21 – Logging dei Risultati
 La registrazione (logging) dei risultati rappresenta una componente essenziale del simulatore software del sistema logico-aritmetico sincronizzato a 32 bit. Essa permette di memorizzare l’intera cronologia delle operazioni eseguite , fornendo all’utente uno strumento utile per analisi successive, debugging e validazione dei dati. Il programma implementa una gestione avanzata del logging che include sia la memorizzazione temporanea in memoria che la registrazione permanente su file.
 
 Obiettivo del logging
@@ -641,7 +641,7 @@ Il programma include una funzione per visualizzare il contenuto del file di log 
 Questa funzione permette di esaminare rapidamente le operazioni eseguite senza dover aprire manualmente il file.
 La funzione di logging rappresenta uno strumento fondamentale per comprendere il comportamento del sistema simulato. Grazie alla combinazione di memorizzazione temporanea, registrazione su file e output grafico migliorato, il programma offre una tracciabilità completa di ogni operazione effettuata. Questo tipo di approccio non solo migliora l’affidabilità del simulatore, ma lo rende anche uno strumento efficace per scopi didattici e analisi avanzate del sistema hardware originale.
 
-CAPITOLO 22 – Convertitore Binario-Decimale
+#### CAPITOLO 22 – Convertitore Binario-Decimale
 La conversione tra i sistemi numerici binario e decimale rappresenta un’operazione fondamentale nel contesto del simulatore software del sistema logico-aritmetico sincronizzato a 32 bit. Essa consente di trasformare i valori immessi dall’utente (che spesso sono forniti in formato decimale) in dati binari utilizzabili dalle ALU, e viceversa, permettendo all’utente di interpretare facilmente i risultati prodotti dal sistema.
 
 Obiettivo della funzione di conversione
@@ -730,7 +730,7 @@ Il valore viene salvato in memoria per uso successivo
 Analogamente, il processo inverso avviene quando si converte un risultato binario in formato decimale.
 La funzione di conversione tra binario e decimale rappresenta un elemento chiave nel simulatore software del sistema logico-aritmetico sincronizzato a 32 bit. Essa consente di tradurre i valori immessi dall’utente in un formato interpretabile dal sistema e di restituire il risultato in una forma leggibile. La combinazione di conversione precisa, logging avanzato, gestione della memoria e output grafico migliora notevolmente l’usabilità del programma, rendendolo uno strumento efficace sia per scopi didattici che per analisi tecniche.
 
-CAPITOLO 23 – Simulazione del Clock e Sincronizzazione
+#### CAPITOLO 23 – Simulazione del Clock e Sincronizzazione
 La sincronizzazione rappresenta uno dei concetti fondamentali nell’architettura digitale. Essa garantisce che tutti i componenti del sistema operino in modo coordinato, evitando problemi come dati incompleti, ritardi irregolari o risultati inconsistenti. Nel simulatore software sviluppato in linguaggio C, la sincronizzazione è realizzata attraverso l’utilizzo di un segnale di clock simulato , che coordina i trasferimenti tra registri PIPO e le ALU 74181.
 
 Obiettivo della sincronizzazione
@@ -796,7 +796,7 @@ Al secondo impulso di clock, il risultato viene inviato al registro di output
 Il risultato finale viene mostrato a schermo e registrato in memoria
 La gestione del clock rappresenta uno degli elementi chiave per garantire la correttezza del comportamento del sistema simulato. Grazie alla funzione clock_step(), al controllo avanzato del ritardo e alla registrazione dettagliata delle transizioni, il programma riesce a riprodurre fedelmente il comportamento sincrono di un sistema digitale basato su ALU 74181 e registri PIPO. Questa capacità non solo migliora l’accuratezza del simulatore, ma lo rende anche uno strumento didattico efficace per comprendere il ruolo del clock nei sistemi logici sincronizzati.
 
-CAPITOLO 24 – Test Case e Validazione del Sistema
+#### CAPITOLO 24 – Test Case e Validazione del Sistema
 La validazione del sistema logico-aritmetico simulato è un passo fondamentale per garantire che l’implementazione software riproduca fedelmente il comportamento dell’hardware originale. A tal fine, sono stati definiti diversi test case rappresentativi, basati su operazioni aritmetiche e logiche comuni, utilizzando combinazioni note di operandi e segnali di controllo. Ogni test è stato eseguito sia in ambiente manuale che da file, e i risultati ottenuti sono stati confrontati con quelli attesi.
 
 Obiettivo dei test case
@@ -843,7 +843,7 @@ Analisi prestazioni e accuratezza del simulatore
 Essi costituiscono un elemento chiave per assicurare che il sistema software mantenga un comportamento conforme a quanto avverrebbe in un sistema hardware reale.
 La definizione e l’esecuzione di test case rappresentano una parte essenziale nella realizzazione del simulatore. Essi consentono di verificare la correttezza delle operazioni aritmetiche e logiche, la gestione del carry e la sincronizzazione tra ALU e registri PIPO. Grazie a una struttura modulare e a una registrazione completa dei risultati, il programma offre una valida base per l’apprendimento e la validazione avanzata del sistema digitale simulato. L’utilizzo di test automatizzati e memorizzazione dei risultati migliora ulteriormente la qualità del progetto e ne garantisce affidabilità e precisione.
 
-CAPITOLO 25 – Criticità e Limiti del Simulatore
+#### CAPITOLO 25 – Criticità e Limiti del Simulatore
 Sebbene il simulatore software del sistema logico-aritmetico sincronizzato a 32 bit basato su ALU 74181 e registri PIPO rappresenti uno strumento efficace per comprendere il comportamento reale dei componenti digitali, esso presenta alcune criticità e limitazioni che derivano sia dalla natura stessa della simulazione software che dalle caratteristiche dell’hardware originale.
 
 Obiettivo dell’analisi critica
@@ -1006,7 +1006,7 @@ Difficoltà nell’emulare il parallelismo hardware
 Problemi di usabilità e compatibilità cross-platform
 Questi punti offrono ampio margine per ulteriori sviluppi e ottimizzazioni future, che potrebbero includere interfacce grafiche, simulazioni a livello gate e test più avanzati.
 
-CAPITOLO 26 – Applicazioni Didattiche e Valore Formativo
+#### CAPITOLO 26 – Applicazioni Didattiche e Valore Formativo
 Il simulatore software del sistema logico-aritmetico sincronizzato a 32 bit, basato su ALU 74181 e registri PIPO, rappresenta uno strumento didattico estremamente valido per l’apprendimento delle architetture hardware digitali. Esso permette di esplorare i fondamenti della logica digitale, il funzionamento delle unità ALU, la gestione dei segnali di controllo e la sincronizzazione tra componenti in un ambiente accessibile e controllabile.
 
 Obiettivi formativi del progetto
@@ -1159,7 +1159,7 @@ L’utilizzo del linguaggio C rende il progetto accessibile a studenti di inform
 Questo tipo di simulazione non solo migliora la comprensione teorica dei sistemi digitali, ma fornisce un’esperienza pratica che prepara gli studenti alla progettazione hardware/software futura.
 
 
-CAPITOLO 27 – Sicurezza del Codice
+#### CAPITOLO 27 – Sicurezza del Codice
 Nel contesto dello sviluppo software, la sicurezza del codice rappresenta uno dei punti chiave per garantire che il programma funzioni correttamente, eviti comportamenti anomali e non esponga l’utente a rischi legati alla gestione errata della memoria o al parsing di input malevoli. Nel simulatore del sistema logico-aritmetico sincronizzato a 32 bit basato su ALU 74181 e registri PIPO, sono state implementate diverse strategie per migliorare la robustezza del codice e prevenire errori comuni durante l’esecuzione.
 
 Obiettivi di sicurezza
@@ -1238,7 +1238,7 @@ La sicurezza del codice gioca un ruolo fondamentale nella stabilità e nell’af
 
 La combinazione di validazione precisa, feedback visivo e registrazione completa degli errori rende il simulatore uno strumento efficace sia per scopi didattici che per futuri sviluppi professionali.
 
-CAPITOLO 28 – Portabilità del Programma
+#### CAPITOLO 28 – Portabilità del Programma
 La portabilità rappresenta una caratteristica fondamentale per qualsiasi applicativo software, poiché determina la capacità del programma di funzionare correttamente su diverse piattaforme hardware e sistemi operativi senza modifiche sostanziali al codice. Il simulatore del sistema logico-aritmetico sincronizzato a 32 bit basato su ALU 74181 e registri PIPO è stato sviluppato in linguaggio C, una scelta che favorisce la portabilità grazie alla sua ampia diffusione e alla presenza di compilatori disponibili su quasi tutte le piattaforme moderne.
 
 Obiettivo della portabilità
@@ -1319,7 +1319,7 @@ Nonostante alcune piccole discrepanze nell’output grafico e nella gestione del
 
 Con opportuni aggiustamenti e l’implementazione di opzioni come --no-graphic o --batch, il programma può essere reso ancora più versatile, adatto non solo a scopi didattici ma anche a integrazioni automatizzate, testing cross-sistema e utilizzo su dispositivi embedded.
 
-CAPITOLO 29 – Configurazione Iniziale da File
+#### CAPITOLO 29 – Configurazione Iniziale da File
 La possibilità di caricare i parametri del sistema logico-aritmetico sincronizzato a 32 bit da un file di configurazione rappresenta una funzionalità avanzata del simulatore software. Questo tipo di approccio permette all’utente di preparare un set di dati predefiniti per gli operandi A e B, i segnali di controllo S0–S3, la modalità M e il riporto iniziale Cn, e di utilizzarli ripetutamente senza dover reinserire manualmente ogni valore.
 
 Obiettivo della configurazione da file
@@ -1390,50 +1390,7 @@ La capacità di caricare la configurazione iniziale da file rappresenta uno stru
 
 Grazie a questa funzione, il programma diventa uno strumento utile non solo per scopi didattici ma anche per test ripetuti, debug avanzato e integrazione con altri sistemi. La combinazione di parsing accurato, validazione rigorosa e logging completo rende il simulatore uno strumento affidabile per comprendere il comportamento reale del sistema digitale originale.
 
-CAPITOLO 30 – Output Formattato
-La presentazione del risultato rappresenta uno dei punti chiave per rendere il simulatore software del sistema logico-aritmetico sincronizzato a 32 bit leggibile, chiaro e professionale . L’output formattato permette all’utente di comprendere immediatamente i dati elaborati, il tipo di operazione eseguita, i segnali di controllo utilizzati e il risultato finale in formato binario e decimale.
-
-Obiettivo dell’output formattato
-L’obiettivo principale della funzione di output è:
-
-Migliorare la leggibilità del risultato
-Fornire feedback visivo immediato sull’esecuzione
-Mostrare operandi, segnali e risultati in un’unica schermata
-Supportare la registrazione su file con formato coerente
-Rendere l’interfaccia grafica migliorata opzionale
-Il programma include diverse funzioni dedicate alla visualizzazione del risultato, tra cui stampa_risultato(), visualizza_output_grafico() e salva_in_file().
-
-Visualizzazione grafica avanzata
-Per rendere più immediata l’interpretazione dei risultati, il programma utilizza una formattazione ASCII migliorata che simula cornici e tabelle:
-
-Questa interfaccia aumenta la chiarezza e semplifica l’analisi da parte dell’utente.
-
-Funzione stampa_risultato()
-La funzione principale per mostrare il risultato è definita come segue.
-Questa funzione fornisce una panoramica completa del lavoro svolto e facilita l’analisi successiva.
-
-Output testuale semplice (opzione senza grafica)
-Per garantire compatibilità con terminali meno avanzati o sistemi minimali, il programma include anche un'opzione per disattivare la formattazione graficaLogging su file con formattazione coerente
-Ogni volta che viene eseguita un’operazione, il programma registra i risultati in un file (risultati_alu32.txt) con lo stesso formato usato nell’output terminale.
-Questo garantisce una tracciabilità completa delle operazioni effettuate.
-
-Supporto per formati strutturati (JSON)
-Un miglioramento futuro potrebbe includere la possibilità di generare output in formato JSON , utile per analisi automatiche o integrazione con altri programmi.
-Questa estensione richiederebbe l’utilizzo di librerie esterne come jansson o json-c.
-
-Output binario dettagliato
-Il programma mostra il risultato sia in formato decimale che in formato binario, grazie alle funzioni DEC_BIN_CODER() e BIN_DEC_CODER().
-L’output completo include quindi:
-
-Il valore decimale del risultato
-La sua rappresentazione binaria a 32 bit
-Funzione stampa_memoria()
-Il programma include una memoria temporanea dove vengono conservati i risultati intermedi. La funzione stampa_memoria() consente di visualizzare tutti i risultati archiviati:
-Questa funzione è particolarmente utile per il debug e per verificare il corretto funzionamento dopo molteplici esecuzioni consecutive.
-
-Ogni risultato viene memorizzato e può essere recuperato in qualsiasi momento.
-
-CAPITOLO 31 – Output Formattato e Visualizzazione del Risultato
+#### CAPITOLO 30 – Output Formattato e Visualizzazione del Risultato
 La rappresentazione grafica e la formattazione dell’output giocano un ruolo fondamentale nel simulatore software del sistema logico-aritmetico sincronizzato a 32 bit basato su ALU 74181 e registri. Essa permette all’utente di comprendere immediatamente:
 
 Il risultato delle operazioni eseguite
@@ -1511,8 +1468,6 @@ Output per il convertitore binario-decimale
 Il programma include una funzione dedicata al convertitore numerico, che mostra contemporaneamente il valore immesso e il risultato della conversione:
 
 
-
-
 Output avanzato per il debug
 In fase di sviluppo e testing, è stata aggiunta una funzione debug_ALU() che mostra i valori interni dell’unità ALU, utili per individuare bug o discrepanze:
 
@@ -1521,7 +1476,7 @@ La capacità di fornire un output formattato e ben strutturato rappresenta uno s
 
 La scelta di mantenere un output modulare e flessibile, con opzioni per disattivare la grafica avanzata, aumenta ulteriormente la portabilità e l’utilità del programma in diversi contesti, dall’apprendimento universitario al testing automatizzato.
 
-CONCLUSIONE
+#### CONCLUSIONE
 Il simulatore software del sistema logico-aritmetico sincronizzato a 32 bit basato su ALU 74181 e registri PIPO rappresenta un esempio pratico e didatticamente utile di come i fondamenti dell’architettura digitale possano essere replicati in ambiente virtuale. Attraverso l’utilizzo di strumenti semplici ma potenti come il linguaggio C, è stato possibile riprodurre fedelmente il comportamento di componenti hardware ormai storici, rendendoli accessibili anche a chi non dispone di un laboratorio fisico.
 
 Lungo il percorso di sviluppo sono state affrontate numerose sfide:
@@ -1538,22 +1493,6 @@ Il funzionamento delle ALU e dei registri sincroni
 L’importanza della sincronizzazione nei sistemi digitali
 La scalabilità dei circuiti logici verso parole più lunghe (es. da 4 bit a 32 bit)
 Le problematiche legate all’input/output e alla precisione del calcolo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #### Ringraziamenti
