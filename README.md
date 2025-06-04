@@ -1556,7 +1556,7 @@ Le problematiche legate all’input/output e alla precisione del calcolo
 
 
 
-Ringraziamenti
+#### Ringraziamenti
 Desideriamo ringraziare quanti hanno contribuito, direttamente o indirettamente, alla realizzazione di questo progetto:
 I docenti e i ricercatori che ci hanno guidato nella comprensione dell’architettura digitale
 Tutti coloro che hanno testato il programma e fornito feedback utili per migliorarlo
