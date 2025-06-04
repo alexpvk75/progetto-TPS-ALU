@@ -387,7 +387,7 @@ Dopo ogni esecuzione, il risultato viene mostrato a schermo e registrato in un f
 
 Un ciclo di esecuzione tipico prevede l’inserimento dei valori degli operandi, il caricamento nei registri di input, l’invio alle ALU al fronte positivo del clock, l’elaborazione dell’operazione selezionata, la memorizzazione del risultato e infine la visualizzazione o il salvataggio a seguito di un nuovo impulso di clock. Questo progetto dimostra come sia possibile simulare in ambiente virtuale il comportamento di un sistema hardware reale, sfruttando un’accurata modellazione dell’ALU 74181, l’uso di registri sincronizzati e funzioni logiche fondamentali. Il simulatore risulta uno strumento utile sia in ambito didattico che per lo sviluppo di architetture hardware/software più complesse in futuro.
 
-CAPITOLO 15 – Funzioni di Input Utente
+CAPITOLO 15 - Funzioni di Input Utente
 Nel simulatore software del sistema logico-aritmetico sincronizzato a 32 bit, la gestione dell’input utente rappresenta una componente fondamentale. Essa permette all’utente di fornire operandi, segnali di controllo e configurazioni operative necessarie per eseguire le operazioni desiderate. Il programma è stato progettato per accettare sia input manuale da terminale che lettura automatica da file di configurazione , garantendo flessibilità e facilità d’uso.
 Obiettivo della funzione di input
 L’obiettivo principale della funzione di input è:
@@ -401,12 +401,10 @@ Il programma presenta un menù interattivo dove l’utente può scegliere tra di
 Eseguire un’operazione con ALU
 Caricare i dati da file
 Visualizzare i risultati
-Registrare i dati su file
 Uscire dal programma
 Un esempio di menù principale è dato da:
-============================
-   MENU PRINCIPALE
-============================
+
+**MENU PRINCIPALE**
 [1] Inserisci operandi manualmente
 [2] Leggi da file di input
 [3] Visualizza risultati
@@ -1067,9 +1065,7 @@ Questa struttura modulare introduce il concetto di scalabilità , fondamentale n
 
 Interfaccia utente e menù interattivo
 Il programma include un menù interattivo dove l’utente può scegliere tra diverse opzioni operative
-============================
-MENU PRINCIPALE
-============================
+**MENU PRINCIPALE**
 [1] Inserisci operandi manualmente
 [2] Leggi da file di input
 [3] Visualizza risultati
@@ -1571,8 +1567,13 @@ Il simulatore si presenta come uno strumento educativo efficace, capace di trasf
 Grazie della lettura
 									
 Leonardo Galli
+
 Davide Ning Yu
+
 Danilo Ambrogio Brusa
+
 Zheming Feng
+
 Oleksandr Pavlyk
+
 Bohan Yang
