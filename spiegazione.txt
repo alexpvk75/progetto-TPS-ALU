@@ -1,6 +1,6 @@
 Il programma incorpora diverse funzioni di utilità e supporto che gestiscono il tempo, la conversione dei dati e la memoria, fornendo l'infrastruttura necessaria per le simulazioni di logica digitale.
 
-###Funzioni di Gestione del Tempo
+==Funzioni di Gestione del Tempo==
 'delay(int milliseconds)'
 Questa funzione è progettata per mettere in pausa l'esecuzione del programma per un numero specificato di millisecondi. Lo fa registrando un start_time usando clock(), calcolando un end_time basato sul ritardo desiderato e sulla macro CLOCKS_PER_SEC (che rappresenta i tick di clock al secondo), e quindi entrando in un ciclo di attesa attiva che continua finché il valore corrente di clock() non supera il end_time calcolato. Questo meccanismo è cruciale per simulare il passare del tempo in modo discreto, passo dopo passo, il che è essenziale per osservare il comportamento temporale dei circuiti digitali.   
 
